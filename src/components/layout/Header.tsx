@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 import Logo from '../ui/Logo'
-import Button from '../ui/Button'
+import BookingButton from '../ui/BookingButton'
 
 const navLinks = [
   { to: '/', label: 'Home', end: true },
@@ -11,12 +11,40 @@ const navLinks = [
   { to: '/contact', label: 'Contact' },
 ]
 
+const HERO_SCROLL_THRESHOLD = 32
+
 function scrollToTop() {
   window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
 }
 
 export default function Header() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const { pathname } = useLocation()
+  const overHero = pathname === '/'
+
+  useEffect(() => {
+    if (!overHero) {
+      setScrolled(false)
+      return
+    }
+
+    const onScroll = () => {
+      setScrolled(window.scrollY > HERO_SCROLL_THRESHOLD)
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [overHero])
+
+  const headerClass = [
+    'site-header',
+    overHero && 'site-header--hero',
+    overHero && scrolled && 'site-header--scrolled',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   const handleNavClick = () => {
     setOpen(false)
@@ -24,10 +52,10 @@ export default function Header() {
   }
 
   return (
-    <header className="site-header">
+    <header className={headerClass}>
       <div className="section-container">
         <NavLink to="/" className="header-brand" onClick={handleNavClick}>
-          <Logo size="sm" />
+          <Logo size="nav" />
         </NavLink>
 
         <nav className="site-nav" aria-label="Main navigation">
@@ -45,7 +73,7 @@ export default function Header() {
         </nav>
 
         <div className="header-actions">
-          <Button to="/contact" onClick={handleNavClick}>Book a Call</Button>
+          <BookingButton onClick={handleNavClick}>Book a Call</BookingButton>
         </div>
 
         <button type="button" className="mobile-toggle" aria-label="Menu" onClick={() => setOpen(!open)}>
@@ -69,7 +97,7 @@ export default function Header() {
             </NavLink>
           ))}
           <div style={{ marginTop: '1rem' }}>
-            <Button to="/contact" onClick={handleNavClick}>Book a Call</Button>
+            <BookingButton onClick={handleNavClick}>Book a Call</BookingButton>
           </div>
         </nav>
       )}

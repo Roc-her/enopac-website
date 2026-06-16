@@ -4,7 +4,7 @@ $dest = Join-Path $PSScriptRoot '..\public\images'
 New-Item -ItemType Directory -Force -Path $dest | Out-Null
 
 $images = [ordered]@{
-  'hero-home.jpg'                 = 'https://images.pexels.com/photos/3288107/pexels-photo-3288107.jpeg?auto=compress&cs=tinysrgb&w=1920'
+  'hero-home.jpg'                 = 'local: upscale public/images/hero-home-source.png to 2560px'
   'hero-about.jpg'                = 'https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=1920'
   'hero-services.jpg'             = 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1920'
   'hero-process.jpg'              = 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1920'
@@ -21,6 +21,10 @@ $images = [ordered]@{
 
 foreach ($entry in $images.GetEnumerator()) {
   $out = Join-Path $dest $entry.Key
+  if ($entry.Value -like 'local:*') {
+    Write-Host "Skipping $($entry.Key) (local asset)"
+    continue
+  }
   Write-Host "Downloading $($entry.Key)..."
   curl.exe --ssl-no-revoke -L -sS -o $out $entry.Value
   $size = (Get-Item $out).Length

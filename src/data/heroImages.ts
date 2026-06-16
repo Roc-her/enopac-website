@@ -3,7 +3,7 @@
 export const heroImages = {
   home: {
     src: '/images/hero-home.jpg',
-    alt: 'Modern luxury home exterior — Enopac Property Group',
+    alt: 'Retro urban night scene — Enopac Property Group',
   },
   about: {
     src: '/images/hero-about.jpg',
@@ -46,7 +46,7 @@ export const sectionImages = {
   },
   portfolio: {
     src: '/images/section-portfolio.jpg',
-    alt: 'Luxury investment property interior — Enopac Property Group',
+    alt: 'Matthew Capone — Property and investment expert',
   },
 } as const
 

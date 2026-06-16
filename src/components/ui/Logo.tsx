@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 
 type LogoProps = {
   className?: string
-  size?: 'sm' | 'lg'
+  size?: 'nav' | 'sm' | 'lg'
 }
 
 function LogoText({ className = '', size = 'sm' }: LogoProps) {
+  const sizeClass =
+    size === 'lg' ? 'logo-lg' : size === 'nav' ? 'logo-nav' : ''
   return (
-    <div className={`${size === 'lg' ? 'logo-lg' : ''} ${className}`.trim()}>
+    <div className={`${sizeClass} ${className}`.trim()}>
       <div className="logo-main">ENOPAC</div>
       <div className="logo-line" />
       <div className="logo-sub">PROPERTY GROUP</div>

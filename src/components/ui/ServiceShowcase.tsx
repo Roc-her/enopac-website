@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { Service } from '../../data/services'
 import { heroImages } from '../../data/heroImages'
-import { site } from '../../data/site'
-import Button from './Button'
+import BookingButton from './BookingButton'
 import ArrowIcon from './ArrowIcon'
 
 const serviceImages: Record<string, { src: string; alt: string }> = {
@@ -64,7 +63,7 @@ export default function ServiceShowcase({ services }: ServiceShowcaseProps) {
                     <span>View full details</span>
                     <ArrowIcon />
                   </Link>
-                  <Button to="/contact">{site.cta} →</Button>
+                  <BookingButton />
                 </div>
               </div>
             </div>

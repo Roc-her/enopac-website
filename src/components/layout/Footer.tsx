@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import Logo from '../ui/Logo'
-import Button from '../ui/Button'
 import FooterSocials from '../ui/FooterSocials'
 import { site } from '../../data/site'
 import { services } from '../../data/services'
@@ -35,9 +34,6 @@ export default function Footer() {
               Property management, buyers agency, and development opportunities for investors across WA and VIC.
             </p>
             <FooterSocials />
-            <div className="footer-cta">
-              <Button to="/contact">{site.cta} →</Button>
-            </div>
           </div>
 
           <div className="footer-col">
@@ -78,7 +74,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="footer-contact-name">{site.contact}</li>
-              <li>Licence {site.licence} · {site.state}</li>
+              <li className="footer-contact-detail">Licence {site.licence} · {site.state}</li>
             </ul>
           </div>
         </div>

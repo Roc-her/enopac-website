@@ -7,6 +7,7 @@ type ButtonProps = {
   children: React.ReactNode
   className?: string
   type?: 'button' | 'submit'
+  disabled?: boolean
   onClick?: () => void
 }
 
@@ -18,6 +19,7 @@ export default function Button({
   children,
   className = '',
   type = 'button',
+  disabled = false,
   onClick,
 }: ButtonProps) {
   const classes = [
@@ -29,5 +31,5 @@ export default function Button({
 
   if (to) return <Link to={to} className={classes} onClick={onClick}>{children}</Link>
   if (href) return <a href={href} className={classes} onClick={onClick}>{children}</a>
-  return <button type={type} className={classes} onClick={onClick}>{children}</button>
+  return <button type={type} className={classes} onClick={onClick} disabled={disabled}>{children}</button>
 }

@@ -1,6 +1,8 @@
 import FooterSocials from './FooterSocials'
-import Button from './Button'
+import BookingButton from './BookingButton'
 import { site } from '../../data/site'
+
+const firstName = site.contact.split(' ')[0]
 
 const contactItems = [
   {
@@ -24,26 +26,8 @@ const contactItems = [
     ),
   },
   {
-    label: 'Contact',
-    value: site.contact,
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zm0 2c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4z" fill="currentColor" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Licence',
-    value: `${site.licence} · ${site.state}`,
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" fill="currentColor" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Regions',
-    value: 'WA & VIC',
+    label: 'Based in',
+    value: 'Western Australia & Victoria',
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z" fill="currentColor" />
@@ -52,23 +36,37 @@ const contactItems = [
   },
 ]
 
+function CalendarIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="contact-info-callout-icon">
+      <path
+        d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5zm2 4h10v2H7v-2zm0 4h6v2H7v-2z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
 export default function ContactInfoPanel() {
   return (
     <aside className="contact-info-panel">
       <span className="contact-info-rail" aria-hidden="true" />
-      <span className="contact-info-glow" aria-hidden="true" />
 
-      <p className="contact-info-eyebrow">Direct line to {site.contact.split(' ')[0]}</p>
-      <h2 className="contact-info-title">Speak with someone who invests what they advise.</h2>
-      <p className="contact-info-lead">
-        Book a complimentary strategy session — no obligation. We respond within one business day.
-      </p>
+      <header className="contact-info-head">
+        <p className="contact-info-eyebrow">Direct Contact</p>
+        <h2 className="contact-info-title">
+          Or reach {firstName} <em>directly.</em>
+        </h2>
+        <p className="contact-info-lead">
+          No call centres, no hand-offs — just a direct line to someone who invests what they advise.
+        </p>
+      </header>
 
-      <div className="contact-info-grid">
+      <ul className="contact-info-list">
         {contactItems.map((item) => (
-          <div key={item.label} className="contact-info-card">
+          <li key={item.label} className="contact-info-item">
             <span className="contact-info-icon" aria-hidden="true">{item.icon}</span>
-            <div>
+            <div className="contact-info-body">
               <p className="contact-info-label">{item.label}</p>
               {item.href ? (
                 <a href={item.href} className="contact-info-value">{item.value}</a>
@@ -76,17 +74,26 @@ export default function ContactInfoPanel() {
                 <p className="contact-info-value">{item.value}</p>
               )}
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
 
-      <div className="contact-info-footer">
-        <FooterSocials />
-        <div className="contact-info-actions">
-          <Button href={site.phoneHref}>Call now</Button>
-          <Button href={`mailto:${site.email}`} variant="outline">Email us</Button>
+      <div className="contact-info-foot">
+        <div className="contact-info-callout">
+          <p className="contact-info-callout-label">Prefer a quick call?</p>
+          <BookingButton className="contact-info-callout-btn">
+            <CalendarIcon />
+            <span>{site.cta}</span>
+          </BookingButton>
+          <p className="contact-info-callout-note">
+            Licence {site.licence} · {site.state} · {site.contact}
+          </p>
         </div>
-        <p className="contact-info-note">Western Australia · Victoria · Licence {site.licence}</p>
+
+        <footer className="contact-info-social">
+          <p className="contact-info-social-label">Follow</p>
+          <FooterSocials />
+        </footer>
       </div>
     </aside>
   )

@@ -4,7 +4,8 @@ type EditorialSplitProps = {
   title: React.ReactNode
   subtitle: string
   image: { src: string; alt: string }
-  imageCaption?: string
+  imageCaption?: React.ReactNode
+  portrait?: boolean
   reverse?: boolean
   children?: React.ReactNode
 }
@@ -16,12 +17,13 @@ export default function EditorialSplit({
   subtitle,
   image,
   imageCaption,
+  portrait = false,
   reverse = false,
   children,
 }: EditorialSplitProps) {
   return (
     <div className="editorial-split-wrap">
-      <div className={`editorial-split${reverse ? ' editorial-split--reverse' : ''}`}>
+      <div className={`editorial-split${reverse ? ' editorial-split--reverse' : ''}${portrait ? ' editorial-split--portrait' : ''}`}>
         <div className="editorial-split-content">
           <span className="editorial-split-rail-glow" aria-hidden="true" />
           {(badge || eyebrow) && (
@@ -35,7 +37,7 @@ export default function EditorialSplit({
           {children}
         </div>
         <div className="editorial-split-media">
-          <figure className="editorial-frame">
+          <figure className={`editorial-frame${portrait ? ' editorial-frame--portrait' : ''}`}>
             <span className="editorial-frame-corner editorial-frame-corner--tl" aria-hidden="true" />
             <span className="editorial-frame-corner editorial-frame-corner--br" aria-hidden="true" />
             <img src={image.src} alt={image.alt} loading="lazy" />

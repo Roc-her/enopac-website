@@ -1,9 +1,4 @@
-import Breadcrumbs from './Breadcrumbs'
-
-type Crumb = { label: string; to?: string }
-
 type PageHeroProps = {
-  breadcrumbs?: Crumb[]
   eyebrow: string
   title: React.ReactNode
   description: string
@@ -12,10 +7,10 @@ type PageHeroProps = {
   imageCaption?: string
   pills?: string[]
   actions?: React.ReactNode
+  centerEyebrow?: boolean
 }
 
 export default function PageHero({
-  breadcrumbs,
   eyebrow,
   title,
   description,
@@ -24,17 +19,21 @@ export default function PageHero({
   imageCaption,
   pills,
   actions,
+  centerEyebrow = true,
 }: PageHeroProps) {
   return (
-    <section className="page-hero">
+    <section className={`page-hero${centerEyebrow ? ' page-hero--center-eyebrow' : ''}`}>
       <div className="section-container">
-        {breadcrumbs && breadcrumbs.length > 0 && (
-          <Breadcrumbs items={breadcrumbs} />
+        {centerEyebrow && (
+          <div className="page-hero-eyebrow-center-wrap">
+            <p className="eyebrow page-hero-eyebrow-center">{eyebrow}</p>
+            <span className="page-hero-eyebrow-flare" aria-hidden="true" />
+          </div>
         )}
 
         <div className="hero-grid">
           <div className="hero-content">
-            <p className="eyebrow">{eyebrow}</p>
+            {!centerEyebrow && <p className="eyebrow">{eyebrow}</p>}
             <h1 className="hero-title">{title}</h1>
             <p className="hero-desc">{description}</p>
 
@@ -62,6 +61,7 @@ export default function PageHero({
           </figure>
         </div>
       </div>
+      <span className="page-hero-bottom-flare" aria-hidden="true" />
     </section>
   )
 }

@@ -1,4 +1,5 @@
 import Button from '../components/ui/Button'
+import BookingButton from '../components/ui/BookingButton'
 import PageHero from '../components/ui/PageHero'
 import SectionHeader from '../components/ui/SectionHeader'
 import CTASection from '../components/ui/CTASection'
@@ -6,6 +7,7 @@ import EditorialSplit from '../components/ui/EditorialSplit'
 import CheckList from '../components/ui/CheckList'
 import FeatureAccordion from '../components/ui/FeatureAccordion'
 import RegionPanels from '../components/ui/RegionPanels'
+import Reveal from '../components/ui/Reveal'
 import { site } from '../data/site'
 import { heroImages, sectionImages } from '../data/heroImages'
 
@@ -52,7 +54,6 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: 'Home', to: '/' }, { label: 'About' }]}
         eyebrow="About Us"
         title={<>Your advocate.<br /><span className="gold">Your advantage.</span></>}
         description="Independent property services built on deep investing expertise — exclusively on your side of every transaction."
@@ -62,7 +63,7 @@ export default function AboutPage() {
         pills={['5+ Years Experience', '100% Investor-Side', 'WA & VIC']}
         actions={
           <>
-            <Button to="/contact">{site.cta} →</Button>
+            <BookingButton />
             <Button to="/contact" variant="outline">Meet {site.contact.split(' ')[0]}</Button>
           </>
         }
@@ -70,47 +71,59 @@ export default function AboutPage() {
 
       <section className="section-padding section-surface bg-dark">
         <div className="section-container">
-          <EditorialSplit
-            reverse
-            eyebrow={`Meet ${site.contact}`}
-            badge={`Licence ${site.licence}`}
-            title="A property partner who thinks beyond the purchase."
-            subtitle="With over five years across property investing and an eight-figure personal portfolio, Matthew helps you secure the right property at the right price, with the right structure behind it."
-            image={sectionImages.portfolio}
-            imageCaption={`${site.contact} · Property & Investment Expert`}
-          >
-            <CheckList items={['Off-market access', 'Portfolio strategy guidance', 'Expert negotiation', 'WA & VIC coverage']} />
-            <div className="hero-actions">
-              <Button to="/contact">{site.cta} →</Button>
-            </div>
-          </EditorialSplit>
+          <Reveal>
+            <EditorialSplit
+              reverse
+              eyebrow={`Meet ${site.contact}`}
+              badge={`Licence ${site.licence}`}
+              title="A property partner who thinks beyond the purchase."
+              subtitle="With over five years across property investing and an eight-figure personal portfolio, Matthew helps you secure the right property at the right price, with the right structure behind it."
+              image={sectionImages.portfolio}
+              imageCaption={`${site.contact} · Property & Investment Expert`}
+            >
+              <CheckList items={['Off-market access', 'Portfolio strategy guidance', 'Expert negotiation', 'WA & VIC coverage']} />
+              <div className="hero-actions">
+                <BookingButton />
+              </div>
+            </EditorialSplit>
+          </Reveal>
         </div>
       </section>
 
-      <section className="section-padding">
+      <section className="section-padding section-surface section-light">
         <div className="section-container">
-          <SectionHeader eyebrow="Why Choose Us" title="What sets us apart" centered />
-          <div className="mt-14" style={{ maxWidth: '48rem', margin: '3.5rem auto 0' }}>
-            <FeatureAccordion features={whyFeatures} />
-          </div>
+          <Reveal>
+            <SectionHeader eyebrow="Why Choose Us" title="What sets us apart" centered />
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="mt-14" style={{ maxWidth: '48rem', margin: '3.5rem auto 0' }}>
+              <FeatureAccordion features={whyFeatures} />
+            </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="section-padding section-surface bg-dark">
         <div className="section-container">
-          <SectionHeader
-            eyebrow="Service Areas"
-            title={<>WA &amp; VIC — <span className="text-gold">two markets, one approach</span></>}
-            subtitle="We represent investors across Perth, Melbourne, and regional centres in both states."
-            centered
-          />
-          <div className="mt-10">
-            <RegionPanels />
-          </div>
+          <Reveal>
+            <SectionHeader
+              eyebrow="Service Areas"
+              title={<>WA &amp; VIC — <span className="text-gold">two markets, one approach</span></>}
+              subtitle="We represent investors across Perth, Melbourne, and regional centres in both states."
+              centered
+            />
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="mt-12">
+              <RegionPanels />
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      <CTASection title={<>Let&apos;s talk about<br />your next move.</>} />
+      <Reveal>
+        <CTASection title={<>Let&apos;s talk about<br />your next move.</>} />
+      </Reveal>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import Button from './Button'
+import BookingButton from './BookingButton'
 import { site } from '../../data/site'
 import { heroImages } from '../../data/heroImages'
 
@@ -14,7 +14,7 @@ export default function CTASection({
   subtitle = 'Every great property journey starts with a conversation. Book a complimentary strategy session and tell us where you want to be.',
 }: CTASectionProps) {
   return (
-    <section className="cta-finale section-padding">
+    <section className="cta-finale section-padding section-surface section-light">
       <div className="cta-finale-bg" aria-hidden="true">
         <img src={heroImages.contact.src} alt="" loading="lazy" />
       </div>
@@ -33,7 +33,7 @@ export default function CTASection({
           {subtitle && <p className="cta-finale-subtitle">{subtitle}</p>}
 
           <div className="cta-finale-bar">
-            <Button to="/contact">{site.cta} →</Button>
+            <BookingButton />
             <span className="cta-finale-divider" aria-hidden="true" />
             <div className="cta-finale-contact">
               <a href={site.phoneHref} className="cta-finale-link">
