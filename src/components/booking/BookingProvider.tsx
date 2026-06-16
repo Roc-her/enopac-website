@@ -21,10 +21,6 @@ export default function BookingProvider({ children }: { children: React.ReactNod
   const location = useLocation()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    preloadVexurCalendar()
-  }, [])
-
   const scrollToInlineCalendar = useCallback(() => {
     const target = document.getElementById('book')
     if (target) {
@@ -33,6 +29,12 @@ export default function BookingProvider({ children }: { children: React.ReactNod
     }
     return false
   }, [])
+
+  useEffect(() => {
+    if (location.pathname === '/contact') {
+      preloadVexurCalendar()
+    }
+  }, [location.pathname])
 
   const openBooking = useCallback(() => {
     if (location.pathname === '/contact') {

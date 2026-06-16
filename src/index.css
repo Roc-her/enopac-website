@@ -5253,6 +5253,59 @@ a.contact-info-value:hover {
   min-width: 0;
 }
 
+.vexur-calendar-shell {
+  position: relative;
+  min-height: 28rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.vexur-calendar-shell__loader {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1e2a2f;
+  border: 1px solid rgba(201, 176, 106, 0.12);
+  border-radius: inherit;
+}
+
+.vexur-calendar-shell__track {
+  width: min(10rem, 46vw);
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(230, 199, 115, 0.14);
+  overflow: hidden;
+  position: relative;
+}
+
+.vexur-calendar-shell__track::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 42%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, #e6c773 45%, #f5e6b8 55%, transparent);
+  animation: vexur-shell-sweep 1.15s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+
+@keyframes vexur-shell-sweep {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(320%); }
+}
+
+.vexur-calendar-shell:not(.vexur-calendar-shell--ready) .vexur-widget {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.vexur-calendar-shell--ready .vexur-calendar-shell__loader {
+  display: none;
+}
+
 .booking-modal {
   position: fixed;
   inset: 0;
